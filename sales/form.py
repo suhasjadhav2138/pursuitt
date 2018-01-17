@@ -81,11 +81,18 @@ class SalePaymentForm(forms.Form):
         (89, '5,000 emails - $89/month '),
         (139, '10,000 emails - $139/month'),
     ]
-    amount = forms.IntegerField(required=True, label="Amount", widget=forms.Select(choices=FRUIT_CHOICES))
-    number = CreditCardField(required=True, label="Card Number")
-    expiration = CCExpField(required=True, label="Expiration")
+    amount = forms.IntegerField(required=True, label="Amount", widget=forms.Select(choices=FRUIT_CHOICES, attrs={
+        'class': 'form-control'}), )
+    number = CreditCardField(required=True, label="Card Number", widget=forms.TextInput(
+        attrs={
+            'class': 'form-control'}
+    ))
+    expiration = CCExpField(required=True, label="Expiration", widget=forms.TextInput(
+        attrs={
+            'class': 'form-control'}
+    ))
     cvc = forms.IntegerField(required=True, label="CCV Number",
-                             max_value=9999, widget=forms.TextInput(attrs={'size': '4'}))
+                             max_value=9999, widget=forms.TextInput(attrs={'size': '4', 'class': 'form-control'}))
 
     def __init__(self, user, *args, **kwargs):
         self.user = user

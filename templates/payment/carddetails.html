@@ -68,88 +68,139 @@
         </div>
     </header>
     <div class="CardDetailsM">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="CardF">
-{#                        <form role="form" class="sign_up">#}
-{#                            <div class="row">#}
-{#                                <div class="col-md-12">#}
-{#                                    <label>#}
-{#                                        Card Number#}
-{#                                    </label>#}
-{#                                    <input type="text" class="form-control" placeholder=" Card Number"/>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="row">#}
-{#                                <div class="col-md-5">#}
-{#                                    <label>#}
-{#                                        Month#}
-{#                                    </label>#}
-{#                                    <select class="form-control" id="sel1">#}
-{#                                        <option>1</option>#}
-{#                                        <option>2</option>#}
-{#                                        <option>3</option>#}
-{#                                        <option>4</option>#}
-{#                                    </select>#}
-{#                                </div>#}
-{#                                <div class="col-md-5">#}
-{#                                    <label>#}
-{#                                        Year#}
-{#                                    </label>#}
-{#                                    <select class="form-control" id="sel1">#}
-{#                                        <option>1</option>#}
-{#                                        <option>2</option>#}
-{#                                        <option>3</option>#}
-{#                                        <option>4</option>#}
-{#                                    </select>#}
-{#                                </div>#}
-{#                                <div class="col-md-2">#}
-{#                                    <label>#}
-{#                                        CVV#}
-{#                                    </label>#}
-{#                                    <input type="password" class="form-control" placeholder="CVV"/>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <h4 class="text-center informationis">#}
-{#                                Your credit card information is securely handled by Stripe.#}
-{#                            </h4>#}
-{##}
-{#                            <div class="row">#}
-{#                                <div class="col-md-12 text-center">#}
-{#                                    <button type="submit" class="btn btn-default PalyStripBtn">#}
-{#                                        Pay with Stripe#}
-{#                                    </button>#}
-{#                                </div>#}
-{#                            </div>#}
-                            <div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="CardF">
+                    {#                        <form role="form" class="sign_up">#}
+                    {#                            <div class="row">#}
+                    {#                                <div class="col-md-12">#}
+                    {#                                    <label>#}
+                    {#                                        Card Number#}
+                    {#                                    </label>#}
+                    {#                                    <input type="text" class="form-control" placeholder=" Card Number"/>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                            <div class="row">#}
+                    {#                                <div class="col-md-5">#}
+                    {#                                    <label>#}
+                    {#                                        Month#}
+                    {#                                    </label>#}
+                    {#                                    <select class="form-control" id="sel1">#}
+                    {#                                        <option>1</option>#}
+                    {#                                        <option>2</option>#}
+                    {#                                        <option>3</option>#}
+                    {#                                        <option>4</option>#}
+                    {#                                    </select>#}
+                    {#                                </div>#}
+                    {#                                <div class="col-md-5">#}
+                    {#                                    <label>#}
+                    {#                                        Year#}
+                    {#                                    </label>#}
+                    {#                                    <select class="form-control" id="sel1">#}
+                    {#                                        <option>1</option>#}
+                    {#                                        <option>2</option>#}
+                    {#                                        <option>3</option>#}
+                    {#                                        <option>4</option>#}
+                    {#                                    </select>#}
+                    {#                                </div>#}
+                    {#                                <div class="col-md-2">#}
+                    {#                                    <label>#}
+                    {#                                        CVV#}
+                    {#                                    </label>#}
+                    {#                                    <input type="password" class="form-control" placeholder="CVV"/>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                            <h4 class="text-center informationis">#}
+                    {#                                Your credit card information is securely handled by Stripe.#}
+                    {#                            </h4>#}
+                    {##}
+                    {#                            <div class="row">#}
+                    {#                                <div class="col-md-12 text-center">#}
+                    {#                                    <button type="submit" class="btn btn-default PalyStripBtn">#}
+                    {#                                        Pay with Stripe#}
+                    {#                                    </button>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    <div class="wrapper">
 
-  {% for key, value in form.errors.items %}
-      <p>{{ value }}</p>
-  {% endfor %}
+                        {% for key, value in form.errors.items %}
+                            <p>{{ value }}</p>
+                        {% endfor %}
+                        {#                        -----------------------------------------------------------------------#}
+                        <form action="" method="post" role="form" class="sign_up">{% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>
+                                        Amount
+                                    </label>
+                                    {{ form.amount }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label>
+                                        Card Number
+                                    </label>
+                                    {{ form.number }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>
+                                        Expiry Month
+                                    </label><br>
+                                    {{ form.expiration }}
+                                </div>
 
-  <form action="" method="post" role="form" class="sign_up" >{% csrf_token %}
+                                <div class="col-md-6">
+                                    <label>
+                                        CVV
+                                    </label>
+                                    {{ form.cvc }}
+                                </div>
+                            </div>
 
-    {% for field in form %}
-{#      <div class="field-wrapper">#}
+                            <h4 class="text-center informationis">
+                                Your credit card information is securely handled by Stripe.
+                            </h4>
 
-        <div >
-          {{ field.label_tag }}:
-        </div>
-
-        <div >
-          {{ field }}
-          {{ field.errors }}
-        </div>
-
-{#      </div>#}
-    {% endfor %}
-
-    <br>
-    <input type="submit" value="Charge Me!" />
-
-
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-default PalyStripBtn">
+                                        Pay with Stripe
+                                    </button>
+                                </div>
+                            </div>
                         </form>
+                        {#------------------------------------------------------------------------------------------------------#}
+                        {#                        <form action="" method="post" role="form" class="sign_up">{% csrf_token %}#}
+                        {#                            <div class="row">#}
+                        {#                                {{ form.number }}#}
+                        {#                                {% for field in form %}#}
+                        {#      <div class="field-wrapper">#}
+                        {##}
+                        {#                                    <div class="col-sm-6">#}
+                        {#                                        {{ field.label_tag }}:#}
+                        {##}
+                        {#                                        <div>#}
+                        {#                                            {{ field.number }}#}
+                        {#                                            {{ field.errors }}#}
+                        {#                                        </div>#}
+                        {#                                    </div>#}
+                        {##}
+                        {#      </div>#}
+                        {#                                {% endfor %}#}
+                        {#                            </div>#}
+                        {##}
+                        {#                            <br>#}
+                        {##}
+                        {#                            <div class="col-md-12 text-center">#}
+                        {#                                <button type="submit" class="btn btn-default PalyStripBtn">#}
+                        {#                                    Pay with Stripe#}
+                        {#                                </button>#}
+                        {#                            </div>#}
+                        {##}
+                        {#                        </form>#}
+
                     </div>
                 </div>
             </div>

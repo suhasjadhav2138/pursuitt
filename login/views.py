@@ -22,6 +22,8 @@ from os.path import join
 from django.conf import settings
 
 import datetime
+
+
 # home page of the website
 def index_view(request):
     if request.method == 'POST':
@@ -39,7 +41,7 @@ def index_view(request):
         track_user = Track_guest_details.objects.all()
         data_tracked = []
         ip_data["ip"] = request.META["REMOTE_ADDR"]
-        print request.META,"****************************************************************"
+        print request.META, "****************************************************************"
         for i in track_user:
             if (ip_data["ip"] == i.ip_address):
                 data_tracked.append(i.mac_address)
@@ -51,7 +53,8 @@ def index_view(request):
         if data_tracked == []:
             # client_address = request.META['HTTP_X_FORWARDED_FOR']
 
-            track_update = Track_guest_details(user="guest", ip_address=request.META['REMOTE_ADDR'], mac_address=ip_data["mac"])
+            track_update = Track_guest_details(user="guest", ip_address=request.META['REMOTE_ADDR'],
+                                               mac_address=ip_data["mac"])
             track_update.save()
 
             print track_user, "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
@@ -131,24 +134,28 @@ def login_view(request):
 @csrf_exempt
 def register_view(request):
     title = "Register"
-    form = UserRegisterForm(request.POST)
-    print form
-    if form.is_valid():
-        user = form.save(commit=False)
-        email = form.cleaned_data.get('email')
-        usern = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
-        user.set_password(password)
-        authenticate(username=user.username, password=password)
-        user.is_active = True
-        user.save()
-        return HttpResponseRedirect('/accounts/login/')
+    if request.method == "POST":
 
-    context = {
-        "form": form,
-        "title": title
-    }
-    return render(request, "login/registration.html", context)
+        form = UserRegisterForm(request.POST)
+        print "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+        print form
+        if form.is_valid():
+            user = form.save(commit=False)
+            email = form.cleaned_data.get('email')
+            usern = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+            authenticate(username=user.username, password=password)
+            user.is_active = True
+            user.save()
+            return HttpResponseRedirect('/accounts/login/')
+    else:
+        form = UserRegisterForm()
+        context = {
+            "form": form,
+            "title": title
+        }
+        return render(request, "login/registration.html", context)
 
 
 # logout user from his profile to the homePage
@@ -343,9 +350,8 @@ def validate_view(request):
                 # Redirect to the document list after POST
                 return render(request, 'login/profile.html', {'form': form})
         else:
-           form = DocumentForm()
-           return render(request, 'login/profile.html', {'form': form})
-
+            form = DocumentForm()
+            return render(request, 'login/profile.html', {'form': form})
 
 # @login_required
 # def list_file(request):

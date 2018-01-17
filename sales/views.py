@@ -11,6 +11,7 @@ from sales.models import Sale
 
 from django.template.context_processors import csrf
 
+
 # Create your views here.
 def charge(request):
     c = {}
@@ -20,7 +21,7 @@ def charge(request):
         form = SalePaymentForm(request.user, request.POST)
         print request.POST, "oooooooooooooooooooo"
 
-        if form.is_valid(): # charges the card
+        if form.is_valid():  # charges the card
             print("done!!!!!")
             return render(request, "login/profile.html", {'form': form}, c)
     else:
